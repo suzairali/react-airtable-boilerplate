@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { getTable } from '../services/airtable/client';
 import type { AirtableRecord } from '../services/airtable/types';
 import { AirtableError } from '../services/airtable/types';
-import { cacheService } from '../services/cache/cacheService';
+import { cacheService, CacheService } from '../services/cache/cacheService';
 
 interface UseAirtableRecordsResult<T> {
   data: AirtableRecord<T>[] | null;
@@ -48,7 +48,7 @@ export const useAirtableRecords = <T = any>(
       setError(null);
 
       // Generate cache key
-      const cacheKey = `${tableName}${filterFormula ? ':' + filterFormula : ''}`;
+      const cacheKey = CacheService.generateKey(tableName, filterFormula);
 
       // Check cache first
       const cachedData = cacheService.get<AirtableRecord<T>[]>(cacheKey);
@@ -68,6 +68,8 @@ export const useAirtableRecords = <T = any>(
 
       await query.eachPage((pageRecords, fetchNextPage) => {
         pageRecords.forEach((record) => {
+          // Note: createdTime access uses internal _rawJson property
+          // This is a known limitation of the Airtable.js library
           records.push({
             id: record.id,
             fields: record.fields as T,

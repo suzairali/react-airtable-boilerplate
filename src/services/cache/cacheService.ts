@@ -91,9 +91,9 @@ class CacheService {
   /**
    * Get cache statistics
    * 
-   * @returns Object with cache size and entry count
+   * @returns Object with cache size (total entries including expired)
    */
-  getStats(): { size: number; entries: number } {
+  getStats(): { size: number } {
     // Clean up expired entries before calculating stats
     const now = Date.now();
     for (const [key, entry] of this.cache.entries()) {
@@ -104,10 +104,10 @@ class CacheService {
 
     return {
       size: this.cache.size,
-      entries: this.cache.size,
     };
   }
 }
 
-// Export singleton instance
+// Export singleton instance and class
 export const cacheService = new CacheService();
+export { CacheService };

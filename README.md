@@ -261,6 +261,11 @@ try {
 }
 ```
 
+## ⚠️ Known Limitations
+
+### CreatedTime Field Access
+The `createdTime` field in records is accessed via the internal `_rawJson` property of the Airtable.js library. This is a known limitation as the official library doesn't expose this field through the public API. While this works reliably, it technically relies on internal implementation details. The code includes fallbacks to current timestamp if this field is unavailable.
+
 ## 🔐 Security Notes
 
 - ⚠️ Never commit your `.env` file

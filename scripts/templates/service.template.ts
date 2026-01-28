@@ -44,6 +44,8 @@ export const ${interfaceName}Service = {
 
       await table.select().eachPage((pageRecords, fetchNextPage) => {
         pageRecords.forEach((record) => {
+          // Note: createdTime access uses internal _rawJson property
+          // This is a known limitation of the Airtable.js library
           records.push({
             id: record.id,
             fields: record.fields as ${interfaceName},
@@ -75,6 +77,8 @@ export const ${interfaceName}Service = {
       const table = getTable('${tableName}');
       const record = await table.find(id);
 
+      // Note: createdTime access uses internal _rawJson property
+      // This is a known limitation of the Airtable.js library
       return {
         id: record.id,
         fields: record.fields as ${interfaceName},
@@ -108,6 +112,8 @@ export const ${interfaceName}Service = {
         .select({ filterByFormula: filterFormula })
         .eachPage((pageRecords, fetchNextPage) => {
           pageRecords.forEach((record) => {
+            // Note: createdTime access uses internal _rawJson property
+            // This is a known limitation of the Airtable.js library
             records.push({
               id: record.id,
               fields: record.fields as ${interfaceName},
