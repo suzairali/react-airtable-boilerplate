@@ -47,7 +47,7 @@ export const getAirtableBase = () => {
  * @param tableName - Name of the table to access
  * @returns Airtable table instance
  */
-export const getTable = <T = any>(tableName: string) => {
+export const getTable = (tableName: string) => {
   const base = getAirtableBase();
-  return base<T>(tableName);
+  return base(tableName);
 };

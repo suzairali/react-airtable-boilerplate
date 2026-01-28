@@ -25,7 +25,7 @@ export const generateHookTemplate = (data: HookTemplateData): string => {
  */
 
 import { useAirtableRecords } from '../useAirtableRecords';
-import { ${interfaceName}, ${recordTypeName} } from '../../services/airtable/generated/tables.types';
+import type { ${interfaceName}, ${recordTypeName} } from '../../services/airtable/generated/tables.types';
 
 /**
  * Hook for fetching records from the ${tableName} table

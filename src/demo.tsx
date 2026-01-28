@@ -21,9 +21,9 @@ export const DemoWithHook = () => {
   // const { data, loading, error, refetch } = useCandidates();
 
   // Placeholder for demo purposes
-  const data = null;
+  const data: any = null;
   const loading = false;
-  const error = null;
+  const error: Error | null = null;
   const refetch = () => console.log('Refetch called');
 
   if (loading) {
@@ -39,7 +39,7 @@ export const DemoWithHook = () => {
     return (
       <div style={{ padding: '20px' }}>
         <h2>Demo: Using Generated Hook</h2>
-        <p style={{ color: 'red' }}>Error: {error.message}</p>
+        <p style={{ color: 'red' }}>Error: {(error as Error).message}</p>
       </div>
     );
   }
@@ -115,9 +115,9 @@ export const DemoErrorHandling = () => {
   // Try with an invalid filter to see error handling
   // const { data, loading, error } = useCandidates("{InvalidField} = 'test'");
 
-  const data = null;
+  const data: any = null;
   const loading = false;
-  const error = null;
+  const error: Error | null = null;
 
   return (
     <div style={{ padding: '20px' }}>
@@ -125,7 +125,7 @@ export const DemoErrorHandling = () => {
       {loading && <p>Loading...</p>}
       {error && (
         <div style={{ padding: '10px', background: '#ffebee', color: '#c62828', borderRadius: '4px' }}>
-          <strong>Error:</strong> {error.message}
+          <strong>Error:</strong> {(error as Error).message}
         </div>
       )}
       {data && (

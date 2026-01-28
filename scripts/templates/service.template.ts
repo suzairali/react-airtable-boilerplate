@@ -39,7 +39,7 @@ export const ${interfaceName}Service = {
    */
   async getAll(): Promise<${recordTypeName}[]> {
     try {
-      const table = getTable<${interfaceName}>('${tableName}');
+      const table = getTable('${tableName}');
       const records: ${recordTypeName}[] = [];
 
       await table.select().eachPage((pageRecords, fetchNextPage) => {
@@ -47,7 +47,7 @@ export const ${interfaceName}Service = {
           records.push({
             id: record.id,
             fields: record.fields as ${interfaceName},
-            createdTime: record.get('_createdTime') as string || new Date().toISOString(),
+            createdTime: (record as any)._rawJson?.createdTime || new Date().toISOString(),
           });
         });
         fetchNextPage();
@@ -72,13 +72,13 @@ export const ${interfaceName}Service = {
    */
   async getById(id: string): Promise<${recordTypeName}> {
     try {
-      const table = getTable<${interfaceName}>('${tableName}');
+      const table = getTable('${tableName}');
       const record = await table.find(id);
 
       return {
         id: record.id,
         fields: record.fields as ${interfaceName},
-        createdTime: record.get('_createdTime') as string || new Date().toISOString(),
+        createdTime: (record as any)._rawJson?.createdTime || new Date().toISOString(),
       };
     } catch (error) {
       throw new AirtableError(
@@ -101,7 +101,7 @@ export const ${interfaceName}Service = {
    */
   async getByFilter(filterFormula: string): Promise<${recordTypeName}[]> {
     try {
-      const table = getTable<${interfaceName}>('${tableName}');
+      const table = getTable('${tableName}');
       const records: ${recordTypeName}[] = [];
 
       await table
@@ -111,7 +111,7 @@ export const ${interfaceName}Service = {
             records.push({
               id: record.id,
               fields: record.fields as ${interfaceName},
-              createdTime: record.get('_createdTime') as string || new Date().toISOString(),
+              createdTime: (record as any)._rawJson?.createdTime || new Date().toISOString(),
             });
           });
           fetchNextPage();

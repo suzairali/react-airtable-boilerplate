@@ -35,13 +35,18 @@ export interface Attachment {
  * Error types for Airtable operations
  */
 export class AirtableError extends Error {
+  statusCode?: number;
+  originalError?: Error;
+  
   constructor(
     message: string,
-    public statusCode?: number,
-    public originalError?: Error
+    statusCode?: number,
+    originalError?: Error
   ) {
     super(message);
     this.name = 'AirtableError';
+    this.statusCode = statusCode;
+    this.originalError = originalError;
   }
 }
 
